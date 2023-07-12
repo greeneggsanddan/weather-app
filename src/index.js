@@ -8,7 +8,7 @@ async function getWeather(location) {
   try {
     const response = await fetch('https://api.weatherapi.com/v1/forecast.json?key=ce00bde19d354ec392503359230807&days=3&aqi=no&alerts=no&q=' + location, {mode: 'cors'});
     const weatherData = await response.json();
-    currentLocation = processData(weatherData);
+    return processData(weatherData);
   } catch (error) {
     console.log(error);
   }
@@ -16,7 +16,6 @@ async function getWeather(location) {
 
 function processData(data) {
   const location = data.location.name;
-  console.log('processData', location);
   const region = data.location.region;
   const country = data.location.country;
   const local_time = data.location.localtime;
@@ -43,7 +42,8 @@ function processData(data) {
 
 submitBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  console.log(input.value);
+  const location = input.value;
+  const locationData = getWeather(location).then(data => {
+    console.log(data.location);
+  });
 });
-
-getWeather('london');
