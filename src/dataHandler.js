@@ -1,4 +1,3 @@
-import displayWeather from "./displayHandler";
 import Weather from "./weather";
 
 export default async function getWeather(location) {
@@ -7,7 +6,8 @@ export default async function getWeather(location) {
     const weatherData = await response.json();
     return processData(weatherData);
   } catch (error) {
-    console.log(error);
+    alert('City not found. Try again.');
+    throw error;
   }
 }
 
