@@ -78,9 +78,7 @@ export function addEventListeners() {
   submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const location = input.value;
-    getWeather(location).then(data => {
-      displayWeather(data);
-    });
+    getWeather(location);
   });
 }
 

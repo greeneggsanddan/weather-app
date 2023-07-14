@@ -1,7 +1,5 @@
 import getWeather from "./dataHandler";
-import displayWeather, { addEventListeners } from "./displayHandler";
+import { addEventListeners } from "./displayHandler";
 
 addEventListeners();
-getWeather('San Francisco').then(data => {
-  displayWeather(data);
-});
+getWeather('San Francisco');

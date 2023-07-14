@@ -1,10 +1,11 @@
 import Weather from "./weather";
+import displayWeather from "./displayHandler";
 
 export default async function getWeather(location) {
   try {
     const response = await fetch('https://api.weatherapi.com/v1/forecast.json?key=ce00bde19d354ec392503359230807&days=3&aqi=no&alerts=no&q=' + location, {mode: 'cors'});
     const weatherData = await response.json();
-    return processData(weatherData);
+    displayWeather(processData(weatherData));
   } catch (error) {
     alert('City not found. Try again.');
     throw error;
