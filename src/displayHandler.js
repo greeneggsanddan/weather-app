@@ -8,6 +8,7 @@ const SNOW = '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" v
 const LIGHTNING = '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#0C2D48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cloud-lightning"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
 const RAIN = '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#145DA0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cloud-rain"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
 const ALERT = '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#A82810" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
+
 const weatherIcons = {
   999: ALERT,
   1000: SUNNY,
@@ -64,17 +65,40 @@ const weatherIcons = {
 export default function displayWeather(data) {
   const body = document.querySelector('.body');
 
-  body.appendChild(getCurrentWeather(data));
-  body.appendChild(getForecast(data));
+  body.appendChild(getTitle(data));
+  body.appendChild(getWeather(data));
 }
 
-function getCurrentWeather(weather) {
+function getTitle(weather) {
+  const container = document.createElement('div');
+
+  const location = document.createElement('h1');
+  const date = document.createElement('h2');
+  const time = document.createElement('h2');
+
+  container.classList.add('title-container');
+  location.classList.add('location');
+  date.classList.add('title-date');
+  
+  const region = weather.country === 'USA' || weather.country === 'United States of America' ? weather.region : weather.country;
+  location.textContent = weather.location + ', ' + region;
+  date.textContent = 'It is ' + format(new Date(weather.local_time), 'p PPPP');
+
+  container.appendChild(location);
+  container.appendChild(date);
+
+  return container;
+}
+
+function getWeather(weather) {
+  const weatherDiv = document.createElement('div');
   const container = document.createElement('div');
   const title = document.createElement('div');
   const temperature = document.createElement('div');
   const iconContainer = document.createElement('div');
   const condition = document.createElement('p');
 
+  weatherDiv.classList.add('weather-div')
   container.classList.add('current-container');
   title.classList.add('current-title');
   temperature.classList.add('current-temperature');
@@ -91,7 +115,10 @@ function getCurrentWeather(weather) {
   container.appendChild(iconContainer);
   container.appendChild(condition);
 
-  return container;
+  weatherDiv.appendChild(container);
+  weatherDiv.appendChild(getForecast(weather));
+
+  return weatherDiv;
 }
 
 function getForecast(weather) {
@@ -128,7 +155,8 @@ function getForecast(weather) {
   return forecastDiv;
 }
 
-function convertDate(date) {    //Converts YYYY-MM-DD to YYYY, MM, DD and removes leading zeroes
+//Converts YYYY-MM-DD to YYYY, MM, DD and removes leading zeroes
+function convertDate(date) {
   let dateArray = date.split('-');
   dateArray.forEach((date, index) => {
       if (date[0] == "0" && index != 0) {

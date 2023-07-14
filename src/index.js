@@ -1,5 +1,7 @@
 import displayWeather from "./displayHandler";
 import Weather from "./weather";
+import fromUnixTime from "date-fns/fromUnixTime";
+import format from "date-fns/format";
 
 let currentLocation = new Weather();
 const input = document.querySelector('.search-bar');
