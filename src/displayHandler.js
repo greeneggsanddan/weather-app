@@ -64,6 +64,7 @@ const weatherIcons = {
 
 export default function displayWeather(data) {
   const body = document.querySelector('.body');
+  body.innerHTML = '';
 
   body.appendChild(getTitle(data));
   body.appendChild(getWeather(data));
@@ -74,7 +75,6 @@ function getTitle(weather) {
 
   const location = document.createElement('h1');
   const date = document.createElement('h2');
-  const time = document.createElement('h2');
 
   container.classList.add('title-container');
   location.classList.add('location');
@@ -107,7 +107,8 @@ function getWeather(weather) {
 
   title.textContent = 'Current weather';
   temperature.textContent = Math.round(weather.current_temp) + '°F';
-  iconContainer.innerHTML = getIcon(weather.current_code);
+  const code = weather.current_code == 1000 && !weather.is_day ? 1001 : weather.current_code;  //Checks if it's nighttime
+  iconContainer.innerHTML = getIcon(code);
   condition.textContent = weather.current_condition;
 
   container.appendChild(title);
