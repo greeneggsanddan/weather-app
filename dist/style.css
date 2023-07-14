@@ -49,12 +49,12 @@ button {
 }
 /* CSS Reset */
 :root {
-
+  --dark: #0C2D48;
 }
 
 body {
   font-family: 'Open Sans', sans-serif;
-  width: 1200px;
+  width: 1400px;
   margin: 0 auto;
 }
 
@@ -93,4 +93,73 @@ body {
 
 .search-icon {
 
+}
+
+.body {
+  display: flex;
+  gap: 64px;
+  align-items: center;
+  justify-content: center;
+}
+
+.forecasts {
+  display: flex;
+  gap: 64px;
+}
+
+.current-container,
+.forecast-container {
+  outline: 12px solid var(--dark);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 12px;
+  color: var(--dark);
+}
+
+.current-container {
+  width: 288px;
+  height: 384px;
+}
+
+.forecast-container {
+  width: 240px;
+  height: 320px;
+}
+
+.current-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.current-temperature {
+  font-size: 3.6rem;
+  font-weight: 600;
+}
+
+.current-icon svg {
+  width: 140px;
+  height: auto;
+}
+
+.current-condition {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.date {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.temperature {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.condition {
+  font-size: 1rem;
+  font-weight: 500;
 }
