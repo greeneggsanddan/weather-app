@@ -148,6 +148,7 @@ body {
   justify-content: space-around;
   padding: 12px;
   color: var(--dark);
+  text-align: center;
 }
 
 .current-container {
